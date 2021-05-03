@@ -1,5 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+} from "../../../test-utils/testing-library-utils";
 import Options from "../Options";
+import { OrderDetailsProvider } from "../../../context/OrderDetails";
 
 test("displays image for each scoop from server", async () => {
   render(<Options optionType="scoops" />);
