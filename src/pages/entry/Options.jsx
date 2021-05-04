@@ -25,7 +25,7 @@ export default function Options({ optionType }) {
 
   const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
 
-  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase;
+  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
   const optionItems = items.map((item) => (
     <ItemComponent
@@ -41,9 +41,9 @@ export default function Options({ optionType }) {
   return (
     <>
       <h2>{title}</h2>
-      <p>{pricePerItem[optionType]}</p>
+      <p>{pricePerItem[optionType]} each</p>
       <p>
-        {title} total: {orderDetails.totals}
+        {title} total: {orderDetails.totals[optionType]}
       </p>
       <Row>{optionItems}</Row>
     </>
