@@ -34,6 +34,7 @@ export function OrderDetailsProvider(props) {
     scoops: new Map(),
     toppings: new Map(),
   });
+
   const zeroCurrency = formatCurrency(0);
   const [totals, setTotals] = useState({
     scoops: zeroCurrency,
