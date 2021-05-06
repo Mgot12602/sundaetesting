@@ -24,6 +24,7 @@ function calculateSubtotal(optionType, optionCounts) {
   let optionCount = 0;
   for (const count of optionCounts[optionType].values()) {
     optionCount += count;
+    // console.log("count inside calculate subtotal", count);
   }
 
   return optionCount * pricePerItem[optionType];
@@ -34,7 +35,7 @@ export function OrderDetailsProvider(props) {
     scoops: new Map(),
     toppings: new Map(),
   });
-
+  // console.log(optionCounts);
   const zeroCurrency = formatCurrency(0);
   const [totals, setTotals] = useState({
     scoops: zeroCurrency,

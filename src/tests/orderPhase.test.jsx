@@ -6,13 +6,13 @@ import App from "../App";
 test("order phase for happy path", async () => {
   render(<App />);
 
-  const scoopsSubtotal = await screen.getByText("Scoops total: $", {
+  const scoopsSubtotal = await screen.findByText("Scoops total: $", {
     exact: false,
   });
   const vanillaInput = await screen.findByRole("spinbutton", {
     name: "Vanilla",
   });
-  screen.debug();
+  // screen.debug();
   const grandTotal = screen.getByRole("heading", {
     name: /grand total: \$/i,
   });
@@ -36,22 +36,23 @@ test("order phase for happy path", async () => {
   });
 
   //accept terms and conditions and click button to confirm order
-  const vanillaSummary = await screen.findByRole("listitem", {
-    name: /vanilla/i,
-  });
-  expect(vanillaSummary).toHaveTextContent("1");
-  const toppingsSubtotal = await screen.findByText("Toppings:", {
+  const summaryItems = await screen.findAllByRole("listitem");
+  console.log("summaryItems", summaryItems);
+  console.log("summaryItems[0].textcontent", summaryItems[0].textContent);
+  const summaryItemsText = summaryItems.map((item) => item.textContent);
+
+  console.log("summaryItems", summaryItemsText);
+  expect(summaryItemsText).toEqual(["1 Vanilla", "1 Cherries"]);
+  console.log("summaryItemsText", summaryItemsText);
+
+  const toppingsSubtotal = await screen.findByText("Toppings total: $", {
     exact: false,
   });
   expect(toppingsSubtotal).toHaveTextContent("1.50");
-  const cherriesSummary = await screen.findByRole("listitem", {
-    name: /cherries/i,
-  });
-  expect(cherriesSummary).toHaveTextContent("1");
 
   //confirm order  and confirmation page
   //click new order button on confirmation page
   //check that scoops and toppings subtotals have been reset
   //dow we need to await anything to avoid test errors?
-  //   await screen.debug();
+  await screen.debug();
 });
