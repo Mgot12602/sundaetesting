@@ -1,19 +1,20 @@
 import { CardColumns } from "react-bootstrap";
 import { useOrderDetails } from "../../context/OrderDetails";
+import SummaryForm from "./SummaryForm";
 
-const OrderSumary = () => {
+const OrderSumary = ({ setOrderPhase }) => {
   const [orderDetails] = useOrderDetails();
-  console.log("orderdetailsonly", orderDetails);
-  console.log("orderdetails", orderDetails["scoops"]);
-  console.log("orderdetailsscoops", orderDetails["scoops"].values());
-  console.log("orderdetailsscoopskeys", orderDetails["scoops"].keys());
+  // console.log("orderdetailsonly", orderDetails);
+  // console.log("orderdetails", orderDetails["scoops"]);
+  // console.log("orderdetailsscoops", orderDetails["scoops"].values());
+  // console.log("orderdetailsscoopskeys", orderDetails["scoops"].keys());
 
-  console.log("Object.keys", Object.keys(orderDetails["scoops"]));
+  // console.log("Object.keys", Object.keys(orderDetails["scoops"]));
 
   const List = ({ optionType }) =>
     Array.from(orderDetails[optionType]).map(([key, value], indx) => {
-      console.log("key", key);
-      console.log("value", value);
+      // console.log("key", key);
+      // console.log("value", value);
       return <li key={indx}>{`${value} ${key}`}</li>;
     });
 
@@ -40,6 +41,7 @@ const OrderSumary = () => {
       <ul>
         <List optionType="toppings" />
       </ul>
+      <SummaryForm setOrderPhase={setOrderPhase} />
     </div>
   );
 };
