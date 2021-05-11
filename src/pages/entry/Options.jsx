@@ -15,7 +15,7 @@ export default function Options({ optionType }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3030/${optionType}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/${optionType}`)
       .then((response) => setItems(response.data))
       .catch((error) => setError(true));
   }, [optionType]);

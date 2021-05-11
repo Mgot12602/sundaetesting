@@ -7,7 +7,7 @@ import { server } from "../../../mocks/server";
 
 test("Error response from server for submitting ordder", async () => {
   server.resetHandlers(
-    rest.post("http://localhost:3030/order", (req, res, ctx) => {
+    rest.post(`${process.env.REACT_APP_SERVER_URL}/order`, (req, res, ctx) => {
       res(ctx.status(500), ctx.headers({ "Access-Control-Allow-Origin": "*" }));
     })
   );

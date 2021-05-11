@@ -13,7 +13,7 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:3030/order`)
+      .post(`${process.env.REACT_APP_SERVER_URL}/order`)
       .then((response) => setOrderNumber(response.data.orderNumber))
       .catch((error) => setError(true));
   }, []);
