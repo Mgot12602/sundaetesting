@@ -40,8 +40,8 @@ test("order phase for happy path", async () => {
   // console.log("summaryItems", summaryItems);
   // console.log("summaryItems[0].textcontent", summaryItems[0].textContent);
   const summaryItemsText = await summaryItems.map((item) => item.textContent);
-
-  // console.log("summaryItems", summaryItemsText);
+  screen.debug();
+  console.log("summaryItems", summaryItemsText);
   expect(summaryItemsText).toEqual(["1 Vanilla", "1 Cherries"]);
   // console.log("summaryItemsText", summaryItemsText);
 
@@ -59,6 +59,10 @@ test("order phase for happy path", async () => {
   userEvent.click(checkbox);
   //inside confirmation page
   userEvent.click(button);
+
+  const Loading = screen.getByText("Loading");
+  expect(Loading).toBeInTheDocument();
+
   const thankyou = await screen.findByRole("heading", {
     name: /thank you/i,
   });
@@ -78,5 +82,27 @@ test("order phase for happy path", async () => {
   //   name: /grand total: \$/i,
   // });
   // expect(grandTotal2).toHaveTextContent("0.00");
-  // // screen.debug();
+
+  const scoopsSubtotal2 = await screen.findByText("Scoops total: $", {
+    exact: false,
+  });
+  expect(scoopsSubtotal2).toBeInTheDocument();
+});
+
+test("Toppings header is not on summary page if no toppings ordered", async () => {
+  render(<App />);
+  const vanillaInput = await screen.findByRole("spinbutton", {
+    name: "Vanilla",
+  });
+  userEvent.clear(vanillaInput);
+  userEvent.type(vanillaInput, "1");
+
+  const orderButton = screen.getByRole("button", { name: /Order Sundae/i });
+  userEvent.click(orderButton);
+  const scoopsHeading = screen.getByRole("heading", {
+    name: "Scoops total: $2.00",
+  });
+  expect(scoopsHeading).toBeInTheDocument();
+  const toppingsHeading = screen.queryByRole("heading", { name: /toppings/i });
+  expect(toppingsHeading).not.toBeInTheDocument();
 });

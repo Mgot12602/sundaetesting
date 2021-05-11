@@ -1,7 +1,7 @@
 import { rest } from "msw";
 
 export const handlers = [
-  rest.get("http://localhost:3030/scoops", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_SERVER_URL}/scoops`, (req, res, ctx) => {
     return res(
       ctx.json([
         { name: "Chocolate", imagePath: "/images/chocolate.png" },
@@ -9,7 +9,7 @@ export const handlers = [
       ])
     );
   }),
-  rest.get("http://localhost:3030/toppings", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_SERVER_URL}/toppings`, (req, res, ctx) => {
     return res(
       ctx.json([
         { name: "Cherries", imagePath: "/images/cherries.png" },
@@ -18,7 +18,7 @@ export const handlers = [
       ])
     );
   }),
-  rest.post("http://localhost:3030/order", (req, res, ctx) => {
+  rest.post(`${process.env.REACT_APP_SERVER_URL}/order`, (req, res, ctx) => {
     return res(ctx.json({ orderNumber: 1234567 }));
   }),
 ];

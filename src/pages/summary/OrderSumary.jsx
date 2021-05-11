@@ -29,18 +29,24 @@ const OrderSumary = ({ setOrderPhase }) => {
   //   console.log("rows", rows);
   //   return rows;
   // })();
-
+  console.log("orderDetails.totals", orderDetails.toppings.size);
   return (
     <div>
       <h1>Order Summary</h1>
-      <h2>Scoops total: {orderDetails.totals["scoops"]}</h2>
-      <ul>
-        <List optionType="scoops" />
-      </ul>
-      <h2>Toppings total: {orderDetails.totals["toppings"]}</h2>
-      <ul>
-        <List optionType="toppings" />
-      </ul>
+      <div>
+        <h2>Scoops total: {orderDetails.totals["scoops"]}</h2>
+        <ul>
+          <List optionType="scoops" />
+        </ul>
+      </div>
+      {orderDetails.toppings.size && (
+        <div>
+          <h2>Toppings total: {orderDetails.totals["toppings"]}</h2>
+          <ul>
+            <List optionType="toppings" />
+          </ul>
+        </div>
+      )}
       <SummaryForm setOrderPhase={setOrderPhase} />
     </div>
   );
