@@ -1,3 +1,0 @@
-{
-    "testEnviroment": "node"
-}
